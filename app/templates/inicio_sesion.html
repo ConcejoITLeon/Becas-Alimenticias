@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CE Cobro Becas</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/inicio_desing.css')}}">
+</head>
+<body>
+    <!-- partial:index.partial.html -->
+<div class="wrapper">
+    <div class="title-text">
+      <div class="title login">Inicio Sesión</div>
+      <div class="title signup">Registro</div>
+    </div>
+    <div class="form-container">
+      <div class="slide-controls">
+        <input type="radio" name="slide" id="login" checked>
+        <input type="radio" name="slide" id="signup">
+        <label for="login" class="slide login">Entrar</label>
+        <label for="signup" class="slide signup">Registrar</label>
+        <div class="slider-tab"></div>
+      </div>
+
+      <div class="form-inner">
+        
+        <form action="{{url_for('inicio_sesion')}}" method="POST" class="login">
+          <div class="field">
+            <input type="text" name="numcontrol" placeholder="Numero de Control" required>
+          </div>
+          <div class="field">
+            <input type="password" name="pass" placeholder="Contraseña" required>
+          </div>
+          
+          <div class="field btn">
+            <div class="btn-layer"></div>
+            <input type="submit" value="Entrar">
+          </div>
+        </form>
+        <form action="{{url_for('registro_usuario')}}" method="POST" class="signup">
+          <div class="field">
+            <input type="text" name="nombre" placeholder="Nombre Completo" required>
+          </div>
+          <div class="field">
+            <input type="text" name="numcontrol" placeholder="Numero de Control" required>
+          </div>
+          <div class="field">
+            <input type="password" name="pass" placeholder="Contraseña" required>
+          </div>
+          <div class="field">
+            <select name="campus" required>
+                <option value="">Selecciona Campus</option>
+                <option value="Campus 1">Campus 1</option>
+                <option value="Campus 2">Campus 2</option>
+            </select>
+            
+          </div>
+          <div class="field">
+            <select name="grupo" required>
+                <option value="">Selecciona Grupo</option>
+                <option value="A">Grupo A</option>
+                <option value="B">Grupo B</option>
+                <option value="C">Grupo C</option>
+            </select>
+            
+          </div>
+          <div class="field btn">
+            <div class="btn-layer"></div>
+            <input type="submit" value="Registrarme">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- partial -->
+    <script  src="{{ url_for('static',filename='js/inicio_sesion.js')}}"></script>
+  <!-- Alerta Usuario Existente -->
+    {% if error %}
+    <script>
+      alert("{{error}}")
+    </script>
+    {% endif %}
+</body>
+</html>

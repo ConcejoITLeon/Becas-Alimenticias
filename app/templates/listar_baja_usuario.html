@@ -1,0 +1,40 @@
+{% extends './admin_layout.html'%}
+
+{%block body%}
+<main>
+    <div class="container">
+        <h1 class="header-title">Baja Usuarios</h1>
+
+        <form action="{{ url_for('baja_usuario') }}" method="post">
+            <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Número de Control</th>
+                        <th>Baja <input type="checkbox" id="seleccionar_todos"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for usuario in usuarios_pendientes %}
+                    <tr>
+                        <td>{{ usuario[0] }}</td>
+                        <td>{{ usuario[1] }}</td>
+                        <td><input type="checkbox" class="checkbox-user" name="numcontrol" value="{{ usuario[1] }}"></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
+            <button class="action-button" type="submit">Baja Seleccionados</button>
+        </form>
+        
+        {% if error %}
+        <div class="alert alert-danger">
+            <p>{{ error }}</p>
+        </div>
+        {% endif %}
+    </div>
+</main>
+<script src="{{ url_for('static',filename='js/seleccionar_todos.js')}}"></script>
+{%endblock%}

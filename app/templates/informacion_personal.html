@@ -1,0 +1,35 @@
+{% extends './main.html' %}
+
+{% block body %}
+    <div class="welcome-message">
+        <div class="wrap">
+            <div class="info-box">
+                <h2>Información Personal</h2>
+                <!-- Mostrar mensajes flash -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <p><span><strong>Nombre:</strong></span> {{ nombre }}</p>
+                <p><span><strong>Número de Control:</strong></span> {{ numcontrol }}</p>
+                <p><span><strong>Campus:</strong></span> {{ campus }}</p>
+                <p><span><strong>Grupo:</strong></span> {{ grupo }}</p>
+                
+
+                <!-- Formulario para cambiar la contraseña -->
+                <form method="post" action="{{ url_for('personal_info.editar_contrasena') }}">
+                    <label for="contrasena_actual">Contraseña Actual:</label>
+                    <input type="password" name="contrasena_actual" required>
+                    
+                    <label for="contrasena_nueva">Nueva Contraseña:</label>
+                    <input type="password" name="contrasena_nueva" required>
+
+                    <button type="submit">Cambiar Contraseña</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

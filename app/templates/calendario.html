@@ -1,0 +1,45 @@
+{% extends './main.html' %}
+
+{% block body %}
+<div class="calendario-container">
+    <h1>Calendario de Cobros - {{ mes_nombre }} {{ anio }}</h1>
+    <div class="faltas-info {% if faltas_totales %}con-faltas{% else %}sin-faltas{% endif %}">
+        {%if faltas_totales %}
+            <p>Faltas: {{ faltas }}</p>
+        {%else%}
+            <p>Faltas: {{ faltas }}</p>
+        {%endif%}
+        
+    </div>
+    {% if error %}
+        <p>Error: {{ error }}</p>
+    {% else %}
+        <table class="calendar">
+            <thead>
+                <tr>
+                    <th>Lun</th>
+                    <th>Mar</th>
+                    <th>Mié</th>
+                    <th>Jue</th>
+                    <th>Vie</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for semana in semanas %}
+                    <tr>
+                        {% for dia in semana %}
+                            {% if dia.dia == 0 %}
+                                <td class="empty"></td>
+                            {% else %}
+                                <td class="{% if hoy.replace(day=dia.dia).date() > hoy.date() %}disabled{% elif not dia.habilitado %}disabled{% elif hoy.date() == hoy.date() and dia.dia == hoy.day %}hoy {% if estado_hoy == 'cobrado' %}cobrado{% else %}no-cobrado{% endif %}{% elif hoy.replace(day=dia.dia).date() in fechas_cobradas %}cobrado{% else %}no-cobrado{% endif %}">
+                                    {{ dia.dia }}
+                                </td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CE Cobro Becas</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/main.css')}}">
+</head>
+<body>
+    <header>
+        <div class="header-title">CE Beca Alimenticia</div>
+        <div class="menu-toggle" id="menu-toggle">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <nav id="nav-menu">
+            <ul>
+                <li><a href="{{url_for('cobro_beca')}}">Inicio</a></li>
+                <li><a href="{{ url_for('personal_info.informacion_personal') }}">Información Personal</a></li>
+                <li><a href="{{ url_for('calendario.calendario') }}">Calendario</a></li>
+                <li><a href="{{ url_for('justificacion.justificar')}}">Justificar Falta</a></li>
+                <li><a href="{{ url_for('logout') }}">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {%block body%}
+        {%endblock%}
+    </main>
+    <script src="{{ url_for('static',filename='js/main.js')}}"></script>
+    <script src="{{ url_for('static',filename='js/inactividad.js')}}"></script>
+  
+</body>
+</html>

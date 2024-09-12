@@ -1,0 +1,71 @@
+{% extends './admin_layout.html' %}
+
+{% block body %}
+<main>
+    <div class="container">
+        <h1 class="header-title">Justificaciones Pendientes</h1>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% endwith %}
+        <div class="table-container">
+        <table class="table-container">
+            <thead>
+                <tr>
+                    
+                    <th>No. Control</th>
+                    <th>Fecha</th>
+                    <th>Motivo</th>
+                    <th>Archivo</th> <!-- Nueva columna para vista previa del archivo -->
+                    <th>Aceptar</th>
+                    <th>Rechazar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for justificacion in justificaciones %}
+                <tr>
+                    <td>{{ justificacion[1] }}</td>
+                    <td>{{ justificacion[2] }}</td>
+                    <td>{{ justificacion[3] }}</td>
+                    <td>
+                        {% if justificacion[4] %}
+                            {% if 'image/' in justificacion[5] %}
+                                <a href="{{ url_for('justificacion.view_file', id=justificacion[0]) }}" class="view-file" data-id="{{ justificacion[0] }}" data-type="{{ justificacion[5] }}">Ver Imagen</a>
+                            {% elif justificacion[5] == 'application/pdf' %}
+                                <a href="{{ url_for('justificacion.view_file', id=justificacion[0]) }}" class="view-file" data-id="{{ justificacion[0] }}" data-type="{{ justificacion[5] }}">Ver PDF</a>
+                            {% else %}
+                                <p>Vista previa no disponible</p>
+                            {% endif %}
+                        {% else %}
+                            <p>Sin archivo</p>
+                        {% endif %}
+                    </td>
+                    <td>
+                            <a href="{{ url_for('aceptar_justificacion', id=justificacion[0]) }}" method="post"  class="edit-button">✓</a>
+                    </td>
+                    <td>
+                            <a href="{{ url_for('rechazar_justificacion', id=justificacion[0]) }}" method="post"  class="edit-button">x</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+    <div id="file-preview" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close-button" onclick="closePreview()">&times;</span>
+            <div id="file-content"></div>
+            <button onclick="closePreview()">Cerrar</button>
+        </div>
+    </div>
+</main>
+<script src="{{ url_for('static', filename='js/modal.js') }}"></script>
+{% endblock %}

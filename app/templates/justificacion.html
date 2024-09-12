@@ -1,0 +1,44 @@
+{% extends './main.html'%}
+
+{% block body %}
+<main>
+    <div class="wrap">
+        
+        
+        <form action="{{ url_for('justificacion.justificar') }}" method="post" enctype="multipart/form-data" >
+            <h1 class="header-title">Justificación de Ausencias</h1>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {%set last_message = messages[-1]%}
+                        <div class="alert alert-{{ last_message[0] }}">
+                            {{ last_message[1] }}
+                        </div>
+                    
+                {% endif %}
+            {% endwith %}
+            <!-- Selector de Fechas -->
+            <div class="form-group">
+                <label for="fecha">Selecciona el día a justificar:</label>
+                <input type="date" id="fecha" name="fecha" required max="{{ today_date }}">
+            </div>
+            <br>
+            <!-- Motivo de Justificación -->
+            <div class="form-group">
+                <label for="motivo">Motivo de la justificación:</label>
+                <textarea id="motivo" name="motivo" rows="7" cols="40" placeholder="Escribe aquí tu motivo..." required></textarea>
+            </div>
+            <br>
+            <!-- Subida de Archivo -->
+            <div class="form-group">
+                <label for="archivo">Adjunta un archivo (PDF, PNG, JPEG o JPG):</label>
+                <input type="file" id="archivo" name="archivo" accept=".pdf, .png, .jpg, .jpeg">
+            </div>
+            <br>
+            <!-- Botón de Envío -->
+            <center><button class="action-button " type="submit">Enviar Justificación</button></center>
+        </form>
+
+        
+    </div>
+</main>
+{% endblock %}

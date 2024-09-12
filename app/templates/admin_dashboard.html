@@ -1,0 +1,71 @@
+{% extends './admin_layout.html'%}
+
+{% block body %}
+<div class="resumen-container">
+    <h1>Resumen de Cobros - {{ mes_nombre }} {{ anio }}</h1>
+    {% if error %}
+        <p>Error: {{ error }}</p>
+    {% else %}
+    <!-- Botón para descargar el archivo CSV -->
+    <form action="{{ url_for('resumen.descargar_lista') }}" method="post">
+        <button type="submit" class="btn btn-primary">Descargar CSV</button>
+    </form>
+        {% for campus, grupos in resumen.items() %}
+            <h2>Campus: {{ campus }}</h2>
+            {% for grupo, becarios in grupos.items() %}
+                <h3>Grupo {{ grupo }}</h3>
+                <div class="table-wrapper">
+                    <table class="resumen-table">
+                        <thead>
+                            <tr>
+                                <th class="sticky-col-h">Becario</th>
+                                {% for dia in mes_dias %}
+                                    <th>{{ dia }}</th>
+                                {% endfor %}
+                                <th>Faltas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for becario in becarios %}
+                                <tr>
+                                    {%if becario.faltas_totales == true %}
+                                        <td class="sticky-col-resaltado">{{ becario.nombre }} ({{ becario.numcontrol }})</td>
+                                    {%else%}
+                                        <td class="sticky-col">{{ becario.nombre }} ({{ becario.numcontrol }})</td>
+                                    {% endif %}
+                                    
+                                    {% for dia in mes_dias %}
+                                        {% set estado = "no-aplica" %}
+                                        {% set encontrado = false %}  
+                                        {% for cobro in becario.dias_cobro %}
+                                            {% if cobro.dia == dia and not encontrado%}
+                                                {% set estado = cobro.estado %}
+                                                {% set encontrado = true %}
+                                                <td class="{{ estado }}">
+                                                    {% if estado == "cobrado" %}
+                                                    ✓
+                                                    {% elif estado == "no-cobrado" %}
+                                                    x
+                                                    {% endif %} 
+                                                </td>                
+                                            {% endif %}
+                                        {% endfor %}                                 
+                                    {% endfor %}
+                                    {% if becario.faltas_totales == true %}
+                                        <td class="faltas-resaltadas">{{ becario.faltas }}</td>
+                                    {%else%}
+                                        <td>{{ becario.faltas }}</td>
+                                    {% endif %}
+                                        
+                                </tr>
+                            {% endfor %}
+                            
+                           
+                        </tbody>
+                    </table>
+                </div>
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}

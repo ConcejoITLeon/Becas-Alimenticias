@@ -1,0 +1,17 @@
+{% extends './main.html'%}
+
+{%block body%}
+<form action="{{url_for('calendario.calendario')}}" method="POST" class="login">
+    
+        <div class="checkmark-circle">
+            <div class="checkmark">✔</div>
+        </div>
+        <div class="message">
+            <p><span><strong>{{ nombre }}</strong></span>, has cobrado tu beca del <span><strong>{{ fecha }}</strong></span>.</p>
+        </div>
+    
+    
+        <button class="action-button">Ver Calendario</button>
+</form>   
+{%endblock%}
+

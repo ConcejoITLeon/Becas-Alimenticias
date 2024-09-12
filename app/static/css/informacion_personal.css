@@ -1,0 +1,124 @@
+/* Estilo general para la página */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+/* Estilo del contenedor de mensajes de flash */
+.alert {
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 5px;
+    color: #fff;
+}
+
+.alert-success {
+    background-color: #4caf50;
+}
+
+.alert-danger {
+    background-color: #f44336;
+}
+
+.alert-warning {
+    background-color: #ff9800;
+}
+
+.alert-info {
+    background-color: #2196f3;
+}
+
+/* Estilo del formulario */
+form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+form button {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+form button:hover {
+    background-color: #45a049;
+}
+
+/* Estilo del contenedor de la información personal */
+.info-container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.info-container p {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.info-container p span {
+    font-weight: bold;
+}
+
+/* Estilo del mensaje de éxito */
+.welcome-message {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.checkmark-circle {
+    display: inline-block;
+    background-color: #4caf50;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    position: relative;
+}
+
+.checkmark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 36px;
+    color: #fff;
+}
+
+.message {
+    margin-top: 20px;
+    font-size: 18px;
+}

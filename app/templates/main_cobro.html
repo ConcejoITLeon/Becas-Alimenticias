@@ -1,0 +1,27 @@
+{% extends './main.html'%}
+
+{%block body%}
+    
+        <form action="{{url_for('cobro_beca')}}" method="POST" class="login">
+            <p>Hola <strong> {{ nombre_usuario }}</strong>! </p>
+            
+            
+            {%if cobro_realizado%}
+            <p><strong>¡Ya has cobrado tu Beca el día de hoy!</strong></p>
+            {%elif not puede_cobrar%}
+            <p><strong>Hoy no es tu día de cobro</strong></p>
+            {%else%}
+            <p>Para cobrar tu beca del día <strong> {{ fecha_actual }}</strong>, presiona el botón debajo.</p></p>
+            {%endif%}
+            <input type="hidden" name="nombre_usuario" value="{{ nombre_usuario }}">
+            <input type="hidden" name="fecha" value="{{ fecha_db_actual }}">
+            <button class="action-button" {%if not puede_cobrar or cobro_realizado%}disabled{%endif%}>Cobrar Beca</button>
+        </form>
+    
+    {% if error %}
+    <script>
+      alert("{{error}}")
+    </script>
+    {% endif %}
+    
+{%endblock%}

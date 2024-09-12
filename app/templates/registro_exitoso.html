@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro Exitoso</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/registro_exitoso.css') }}">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="title-text">
+            <div class="title"><strong>Registro Exitoso</strong> </div>
+        </div>
+        <div class="form-container">
+            <div class="form-inner">
+                <div class="field">
+                    <p>¡Felicidades! Tu registro ha sido exitoso. A continuación, se muestra un resumen de los datos introducidos:</p>
+                </div>
+                <div class="field">
+                    <strong>Nombre Completo:</strong> {{ nombre_completo }}
+                </div>
+                <div class="field">
+                    <strong>Número de Control:</strong> {{ numero_control }}
+                </div>
+                <div class="field">
+                    <strong>Contraseña:</strong> {{ contra }}
+                </div>
+                <div class="field">
+                    <strong>Campus:</strong> {{ campus }}
+                </div>
+                <div class="field">
+                    <strong>Grupo:</strong> {{ grupo }}
+                </div>
+                <div class="field btn">
+                    <div class="btn-layer"></div>
+                    <a href="{{ url_for('index') }}"><input type="submit" value="Iniciar Sesión"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

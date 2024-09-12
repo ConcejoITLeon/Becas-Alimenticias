@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CE Cobro Becas - ADMIN</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/main_admin.css')}}">
+</head>
+<body>
+    <header>
+        <div class="header-title">CE Beca Alimenticia - Admin</div>
+        <div class="menu-toggle" id="menu-toggle">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <nav id="nav-menu">
+            <ul>
+                <li><a href="{{ url_for('resumen.resumen') }}">Cobros</a></li>
+                <li><a href="{{ url_for('listar_usuarios') }}">Editar Becario</a></li>
+                <li><a href="{{ url_for('justificaciones_pendientes') }}">Justificación Faltas</a></li>
+                <li><a href="{{ url_for('alta_becario') }}">Alta Becario</a></li>
+                <li><a href="{{ url_for('alta_admin') }}">Alta Admin</a></li>
+                <li><a href="{{ url_for('listar_respaldos') }}">Respaldo Calendarios</a></li>
+                <li><a href="{{ url_for('logout') }}">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+        {%block body%}
+        {%endblock%}
+    
+    <script src="{{ url_for('static',filename='js/main.js')}}"></script>
+    <script src="{{ url_for('static',filename='js/inactividad.js')}}"></script>
+  
+</body>
+</html>

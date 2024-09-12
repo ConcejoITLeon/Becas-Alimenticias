@@ -1,0 +1,77 @@
+/* Estilos generales para el body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #dfdfdf;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Estilo para el contenedor principal */
+.wrapper {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    max-width: 600px;
+    width: 100%;
+}
+
+/* Estilo para los títulos */
+.title-text {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.title {
+    font-size: 24px;
+    color: #333;
+}
+
+/* Estilo para el contenedor del formulario */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-inner {
+    width: 100%;
+}
+
+/* Estilo para los campos del formulario */
+.field {
+    margin-bottom: 10px;
+    font-size: 16px;
+    text-align: center;
+}
+.field p{
+    margin:0;
+}
+.field strong {
+    display: block;
+    font-weight: bold;
+}
+
+/* Estilo para el botón */
+.field.btn {
+    margin-top: 20px;
+}
+
+input[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
