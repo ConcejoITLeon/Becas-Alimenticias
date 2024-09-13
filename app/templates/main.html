@@ -6,9 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CE Cobro Becas</title>
     <link rel="stylesheet" href="{{ url_for('static',filename='css/main.css')}}">
+   
 </head>
 <body>
+    
     <header>
+        <img src="{{ url_for('static', filename='imagenes/Logo Redondo Fondo.png') }}" alt="Logo" class="header-logo" style="width: 50px; height: auto;">
         <div class="header-title">CE Beca Alimenticia</div>
         <div class="menu-toggle" id="menu-toggle">
             <div class="bar"></div>
@@ -33,4 +36,5 @@
     <script src="{{ url_for('static',filename='js/inactividad.js')}}"></script>
   
 </body>
+
 </html>

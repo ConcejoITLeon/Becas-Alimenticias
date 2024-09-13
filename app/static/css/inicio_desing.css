@@ -12,6 +12,11 @@ body {
   width: 100%;
   place-items: center;
   background: #dfdfdf;
+  background-image: url('/static/imagenes/Inclinado-Web.png');;
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat;
+  background-size: 150px 150px;
 }
 ::selection {
   background: #1a75ff;
