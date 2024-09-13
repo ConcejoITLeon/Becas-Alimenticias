@@ -15,7 +15,13 @@ html, body {
   }
   
   header {
-    background-color: #003366;
+    background: -webkit-linear-gradient(
+    left,
+    #003366,
+    #004080,
+    #0059b3,
+    #036dd6
+    );
     color: #fff;
     padding: 10px 20px;
     display: flex;
@@ -605,5 +611,12 @@ table td input[type="checkbox"] {
   
   nav.show {
       display: flex;
+      background: -webkit-linear-gradient(
+    right,
+    #003366,
+    #004080,
+    #0059b3,
+    #036dd6
+    );
   }
   

@@ -13,7 +13,13 @@ html, body {
 }
 
 header {
-  background-color: #003366;
+  background: -webkit-linear-gradient(
+    left,
+    #003366,
+    #004080,
+    #0059b3,
+    #036dd6
+    );
   color: #fff;
   padding: 10px 20px;
   display: flex;
@@ -78,7 +84,7 @@ main {
 
 .welcome-message {
   text-align: center;
-  background: #fff;
+  background: white;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -436,4 +442,11 @@ table.calendar td.empty {
 
 nav.show {
     display: flex;
+    background: -webkit-linear-gradient(
+    right,
+    #003366,
+    #004080,
+    #0059b3,
+    #036dd6
+    );
 }
