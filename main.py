@@ -186,6 +186,8 @@ def baja_usuario():
             cursor=conexion.connection.cursor()
             cursor.executemany("DELETE FROM becarios WHERE numcontrol= %s", [(numcontrol,) for numcontrol in numcontroles])
             conexion.connection.commit()
+            cursor.executemany("DELETE FROM cobro_beca WHERE numcontrol= %s", [(numcontrol,) for numcontrol in numcontroles])
+            conexion.connection.commit()
             cursor.close()
             return redirect(url_for('baja_usuario'))
         except Exception as e:
@@ -289,6 +291,7 @@ def cobro_beca():
     if 'user' not in session:
         return redirect(url_for('index'))
     
+    usuario= session.get('user')
     nombre_usuario= session.get('nombre_usuario')
     fecha=session.get('fecha')
     fecha_letras=session.get('fecha_letras')
@@ -348,40 +351,54 @@ def cobro_beca():
         except  Exception as e:
             return render_template('main_cobro.html',error=str(e))
     else:
-        if nombre_usuario and fecha:
+        if usuario:
+            fecha=datetime.now().strftime('%Y-%m-%d')
             try:
                 cursor = conexion.connection.cursor()
                 cursor.execute("SELECT numcontrol,grupo FROM becarios WHERE nombre = %s", (nombre_usuario,))
                 consulta_ncon = cursor.fetchone()
                 
-                if consulta_ncon:
-                    num_control, grupo = consulta_ncon
-                    cursor.execute("SELECT numcontrol FROM cobro_beca WHERE numcontrol=%s AND fecha=%s", (num_control, fecha,))
-                    cobro_hecho = cursor.fetchone()
-
-                    dia_semana = datetime.strptime(fecha, '%Y-%m-%d').weekday()
-                    dias_cobro = set()
-                    if grupo == 'A':
-                        dias_cobro = {0, 1, 2, 3, 4}
-                    elif grupo == 'B':
-                        dias_cobro = {0, 2, 4}
-                    elif grupo == 'C':
-                        dias_cobro = {1, 3}
-                    
-                    puede_cobrar = dia_semana in dias_cobro
-                    cobro_realizado = True if cobro_hecho else False
-                    return render_template('main_cobro.html', nombre_usuario=nombre_usuario, fecha_actual=fecha_letras, cobro_realizado=cobro_realizado, puede_cobrar=puede_cobrar)
+                if consulta_ncon is None:
+                    cursor.close()
+                    return render_template('main_cobro.html',error='No se encontró el usuario con ese nombre')
                 
+                #Encuentra numero control de usuario
+                num_control,grupo=consulta_ncon
+                
+                dias_cobro = set()
+                if grupo == 'A':
+                    dias_cobro = {0, 1, 2, 3, 4}  # Lunes a Viernes
+                elif grupo == 'B':
+                    dias_cobro = {0, 2, 4}  # Lunes, Miércoles, Viernes
+                elif grupo == 'C':
+                    dias_cobro = {1, 3}  # Martes, Jueves
+                
+                dia_semana = datetime.strptime(fecha, '%Y-%m-%d').weekday()
+                
+                puede_cobrar=dia_semana in dias_cobro
+                
+                #Verifica si ya cobró en el día actual
+                cursor= conexion.connection.cursor()
+                cursor.execute("SELECT numcontrol FROM cobro_beca WHERE numcontrol=%s AND fecha=%s", (num_control,fecha,))
+                cobro_hecho=cursor.fetchone()
+
+                #Si hay cobro se bloquea botón cobro y muestra mensaje
+                if cobro_hecho:
+                    cursor.close()
+
+                    return render_template('main_cobro.html',nombre_usuario=nombre_usuario, fecha_actual=fecha, cobro_realizado=cobro_hecho)
+                
+                elif not puede_cobrar:
+                    cursor.close()
+                    return render_template('main_cobro.html', nombre_usuario=nombre_usuario, fecha_actual=fecha, puede_cobrar=puede_cobrar)
+
+
                 else:
-                    cobro_realizado = False
-                    puede_cobrar = False
-
-                cursor.close()
-
-                return render_template('main_cobro.html', nombre_usuario=nombre_usuario, fecha_actual=fecha, cobro_realizado=cobro_realizado)
-            except Exception as e:
-                cursor.close()
-                return render_template('main_cobro.html', error=str(e))
+                    return render_template('main_cobro.html', nombre_usuario=nombre_usuario,fecha_actual=fecha, cobro_realizado=False, puede_cobrar=puede_cobrar)
+            
+        
+            except  Exception as e:
+                return render_template('main_cobro.html',error=str(e))
         else:
             return render_template('main_cobro.html', error='No hay información disponible para mostrar.')
         
