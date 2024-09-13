@@ -693,4 +693,4 @@ def descargar_respaldo(respaldo_id):
 if __name__=='__main__':
     with app.app_context():
         iniciar_scheduler()
-    app.run(debug=True)
+    app.run(debug=False)
