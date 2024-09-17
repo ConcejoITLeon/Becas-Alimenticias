@@ -8,7 +8,7 @@
     {% else %}
     <!-- Botón para descargar el archivo CSV -->
     <form action="{{ url_for('resumen.descargar_lista') }}" method="post">
-        <button type="submit" class="btn btn-primary">Descargar CSV</button>
+        <button type="submit" class="btn btn-primary">Descargar Lista</button>
     </form>
         {% for campus, grupos in resumen.items() %}
             <h2>Campus: {{ campus }}</h2>

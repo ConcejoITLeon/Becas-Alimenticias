@@ -472,7 +472,16 @@ def rechazar_justificacion(id):
     cursor.close()
     return redirect(url_for('justificaciones_pendientes'))
 
-
+@app.route('/crear_respaldo_manual', methods=['POST'])
+def crear_respaldo_manual():
+    try:
+        crear_respaldo_semanal()
+        flash('Respaldo creado con éxito','success')
+    except Exception as e:
+        flash(f'Error al crear el respaldo: {e}', 'danger')
+    finally:
+        return redirect(url_for('listar_respaldos'))
+    
 def guardar_archivo_db(nombre_archivo, archivo):
     with app.app_context():
         cursor=conexion.connection.cursor()
@@ -710,4 +719,4 @@ def descargar_respaldo(respaldo_id):
 if __name__=='__main__':
     with app.app_context():
         iniciar_scheduler()
-    app.run(host='0.0.0.0',port=5000,debug=False)
+    app.run(host='0.0.0.0',port=5000,debug=True)
