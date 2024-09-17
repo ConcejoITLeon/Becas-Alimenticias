@@ -493,7 +493,7 @@ def iniciar_scheduler():
     with app.app_context():
         scheduler=BackgroundScheduler()
         #scheduler.add_job(func=crear_respaldo_semanal, trigger='interval', minutes=1)
-        scheduler.add_job(func=crear_respaldo_semanal, trigger='cron', day_of_week='sat',hour=0,minute=0)
+        scheduler.add_job(func=crear_respaldo_semanal, trigger='cron', day_of_week='tue',hour=10,minute=00)
         scheduler.start()
 
 def crear_respaldo_semanal():
